@@ -27,9 +27,10 @@ public class MoveToTargetAgent : Agent
         float moveX = actions.ContinuousActions[0];
         float moveY = actions.ContinuousActions[1];
 
-        float movementSpeed = 5f;
+        float movementSpeed = 5.0f;
 
-        transform.localPosition += new Vector3(moveX, moveY) * Time.deltaTime * movementSpeed;
+        Vector2 newPosition = new Vector2(moveX * movementSpeed * Time.deltaTime, moveY * movementSpeed * Time.deltaTime);
+        transform.Translate(newPosition);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
