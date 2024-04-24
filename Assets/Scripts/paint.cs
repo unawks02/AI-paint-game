@@ -39,6 +39,11 @@ public class paint : MonoBehaviour
         }
     }
 
+    public Color PaintColor
+    {
+        get { return paintcol; }
+    }
+
     // Update is called once per frame
     void Update()
     {
