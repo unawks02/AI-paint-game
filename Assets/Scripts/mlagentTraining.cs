@@ -11,7 +11,9 @@ public class mlagentTraining : Agent
 {
 
     [SerializeField] private Tilemap tilemap;
-    private paint paintScript;  // Reference to the paint script
+    [SerializeField] private paint paintScript;  // Reference to the paint script
+    private int previousColorCount = 0;  // Store the count of tiles from the previous step
+
 
     public override void Initialize()
     {
@@ -41,6 +43,8 @@ public class mlagentTraining : Agent
         {
             counter.ResetCounts();
         }
+        previousColorCount = GetCurrentColorCount();  // Initialize at the start of an episode
+
     }
 
 
@@ -113,30 +117,31 @@ public class mlagentTraining : Agent
 
     private void CalculateReward()
     {
-        sumTiles counter = tilemap.GetComponent<sumTiles>();
-        if (counter == null)
-        {
-            Debug.LogError("sumTiles component not found on the tilemap.");
-            return;
-        }
+        int currentColorCount = GetCurrentColorCount();
+        int colorChange = currentColorCount - previousColorCount;
+        AddReward(colorChange);  // Reward is the change in number of tiles
 
-        float totalTiles = counter.total; //could also use counter.redCount + counter.greenCount + counter.blueCount;
-        var agentColor = paintScript.PaintColor;
-
-        float agentColorCount = GetColorCount(agentColor, counter);
-
-        float agentPercentage = agentColorCount / totalTiles;
-        AddReward(agentPercentage);
+        previousColorCount = currentColorCount;  // Update the count for the next step
     }
 
-    private float GetColorCount(Color color, sumTiles counter)
+    private int GetCurrentColorCount()
     {
-        if (color == Color.red) return counter.redCount;
-        if (color == Color.green) return counter.greenCount;
-        if (color == Color.blue) return counter.blueCount;
+        sumTiles counter = tilemap.GetComponent<sumTiles>();
+        if (counter != null)
+        {
+            // Retrieve the float count and convert to int properly
+            float count = 0f;
+            if (paintScript.PaintColor == Color.red) count = counter.redCount;
+            else if (paintScript.PaintColor == Color.green) count = counter.greenCount;
+            else if (paintScript.PaintColor == Color.blue) count = counter.blueCount;
+
+            // Round the float to the nearest whole number before converting to int
+            // This helps in reducing errors due to truncation of decimals
+            return Mathf.RoundToInt(count);
+        }
         return 0;
     }
 
-//venv\scripts\activate
-//mlagents-learn config.yaml --run-id=runID
+    //venv\scripts\activate
+    //mlagents-learn config.yaml --run-id=runID
 }
