@@ -50,6 +50,8 @@ public class ProcGen : MonoBehaviour
 
         generateColumn(columnX, columnX, 10, walls, false);
 
+
+        //generate random boxes
         for (int i = 0; i < numBoxes; i++)
         {
             int x = rand.Next(dimensions);
@@ -58,7 +60,7 @@ public class ProcGen : MonoBehaviour
             int width = rand.Next(5) + 2;
             int height = rand.Next(5) + 2;
 
-            generateSquare(x, y, width, height, walls);
+            generateSquare(x, y, width, height, floors, true);
         }
 
         
@@ -71,8 +73,16 @@ public class ProcGen : MonoBehaviour
         floors.ClearAllTiles();
     }
 
-    private void generateColumn(int x, int y, int length, Tilemap layer, bool vertical)
+    private void generateColumn(int x, int y, int length, Tilemap layer, bool vertical, bool isNull = false)
     {
+        Tile tile;
+
+        if (!isNull) {
+            tile = t;
+        } else
+        {
+            tile = null;
+        }
         for (int i = 0; i < length; i++)
         {
             Vector3Int currentCoords;
@@ -89,17 +99,17 @@ public class ProcGen : MonoBehaviour
                 break;
             }
             
-            layer.SetTile(currentCoords, t);
+            layer.SetTile(currentCoords, tile);
 
         }
     }
 
 
-    private void generateSquare(int x, int y, int width, int height, Tilemap layer)
+    private void generateSquare(int x, int y, int width, int height, Tilemap layer, bool isNull = false)
     {
         for (int i = x; i < x + width; i++)
         {
-            generateColumn(i, y, height, layer, true);
+            generateColumn(i, y, height, layer, true, isNull);
         }
     }
 }
