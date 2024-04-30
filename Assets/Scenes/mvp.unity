@@ -169,6 +169,7 @@ MonoBehaviour:
   redText: {fileID: 1212394470}
   greenText: {fileID: 1577600893}
   blueText: {fileID: 712576267}
+  total: 0
   redCount: 0
   greenCount: 0
   blueCount: 0
@@ -1482,7 +1483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8933271535116308612, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8933271535116308615, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: agentColor.b
