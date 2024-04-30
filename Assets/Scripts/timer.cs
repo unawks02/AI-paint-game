@@ -2,14 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 public class timer : MonoBehaviour
 {
 
     public GameObject playerChar;
     public TextMeshProUGUI gameText;
+    public GameObject winCanv;
+    public Image background;
+    public TextMeshProUGUI winText;
     public float timeGiven = 120.0f;
     private float timeLeft = 0.0f;
+
+    public Tilemap tilemap;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +25,7 @@ public class timer : MonoBehaviour
         playerChar.GetComponent<move>().enabled = false;
         playerChar.GetComponent<paint>().enabled = false;
         gameText.text = "Ready...";
+        winCanv.SetActive(false);
     }
 
     // Update is called once per frame
@@ -54,6 +62,42 @@ public class timer : MonoBehaviour
         playerChar.GetComponent<move>().enabled = false;
         playerChar.GetComponent<paint>().enabled = false;
         gameText.text = "End!";
+        winCanv.SetActive(true);
+
+        //calculate winner 
+        float red = tilemap.GetComponent<sumTiles>().redCount;
+        float blue = tilemap.GetComponent<sumTiles>().blueCount;
+        float green = tilemap.GetComponent<sumTiles>().greenCount;
+
+        float max = Mathf.Max(red, green, blue);
+
+        //set colors 
+        if (Mathf.Approximately(max, red)) {
+            background.color = Color.red;
+            winText.text = "Red wins!";
+        }
+        else if (Mathf.Approximately(max, blue))
+        {
+            background.color = Color.blue;
+            winText.text = "Blue wins!";
+        }
+        else if (Mathf.Approximately(max, green))
+        {
+            background.color = Color.green;
+            winText.text = "Green wins!";
+        }
+        else
+        {
+            background.color = Color.white;
+            winText.text = "Tie or error :)";
+        }
+
+        GameObject[] masterBrush;
+        masterBrush = GameObject.FindGameObjectsWithTag("brush");
+        if (masterBrush.Length != 0)
+        {
+            GameObject.Destroy(masterBrush[0]);
+        }
     }
 
 }

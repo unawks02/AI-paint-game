@@ -18,7 +18,9 @@ public class ProcGen : MonoBehaviour
     public int numUninkableAreas;
 
     public Tile t;
-    
+
+    public Tile unpaintable;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,9 +81,9 @@ public class ProcGen : MonoBehaviour
 
         if (!isNull) {
             tile = t;
-        } else
+        } else //gonna add a grey tile here for unpaintable! our bg may also look like unpaintable tiles now tho haha
         {
-            tile = null;
+            tile = unpaintable;
         }
         for (int i = 0; i < length; i++)
         {

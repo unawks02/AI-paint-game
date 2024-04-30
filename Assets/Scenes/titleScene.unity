@@ -579,6 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300134535772bcd458dc653e710bde52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterBrush: {fileID: 0}
 --- !u!1 &1382777294
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,7 +881,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: mvp
+          m_StringArgument: choose
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1776532311

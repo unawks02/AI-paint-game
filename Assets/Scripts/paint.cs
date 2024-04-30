@@ -19,6 +19,7 @@ public class paint : MonoBehaviour
     private Color redC = new Color(1.0f, 0.0f, 0.0f, 1.0f);
     private Color greenC = new Color(0.0f, 1.0f, 0.0f, 1.0f);
     private Color blueC = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+    private Color whiteC = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 
     // Start is called before the first frame update
@@ -27,15 +28,28 @@ public class paint : MonoBehaviour
         timer = 1.0f / paintSpeed;
         paintcol = new Color(red, green, blue, 1.0f);
 
-        brush = new int[brushDimension, brushDimension];
+        //brush = new int[brushDimension, brushDimension]; now get from brush obj
 
+        GameObject[] masterBrush;
+        masterBrush = GameObject.FindGameObjectsWithTag("brush");
 
-        for (int i = 0; i < brushDimension; i++)
+        if (masterBrush.Length == 0)
         {
-            for (int j = 0; j < brushDimension; j++)
+            Debug.Log("Brush not found");
+            brush = new int[brushDimension, brushDimension];
+
+            for (int i = 0; i < brushDimension; i++)
             {
-                brush[i, j] = Random.Range(0, 2); //returns 0 or 1 at random to generate a random pattern for the brush
+                for (int j = 0; j < brushDimension; j++)
+                {
+                    brush[i, j] = Random.Range(0, 2); //returns 0 or 1 at random to generate a random pattern for the brush
+                }
             }
+        }
+        else
+        {
+            Debug.Log("Brush found");
+            brush = masterBrush[0].GetComponent<brushArray>().array;
         }
     }
 
@@ -75,7 +89,7 @@ public class paint : MonoBehaviour
                                 tilemap.GetComponent<sumTiles>().blueCount--;
                                 tilemap.GetComponent<sumTiles>().redCount++;
                             }
-                            else //old is white
+                            else if (Extension.colEq(oldCol, whiteC))//old is white
                             {
                                 tilemap.SetColor(currentTile, paintcol);
                                 tilemap.GetComponent<sumTiles>().redCount++; //addRed
@@ -95,7 +109,7 @@ public class paint : MonoBehaviour
                                 tilemap.GetComponent<sumTiles>().blueCount--;
                                 tilemap.GetComponent<sumTiles>().greenCount++;
                             }
-                            else //old is white
+                            else if (Extension.colEq(oldCol, whiteC))//old is white
                             {
                                 tilemap.SetColor(currentTile, paintcol);
                                 tilemap.GetComponent<sumTiles>().greenCount++; //addG
@@ -115,7 +129,7 @@ public class paint : MonoBehaviour
                             else if (Extension.colEq(oldCol, blueC)){ //old is blue
                                 //do nothing
                             }
-                            else //old is white
+                            else if (Extension.colEq(oldCol, whiteC))//old is white
                             {
                                 tilemap.SetColor(currentTile, paintcol);
                                 tilemap.GetComponent<sumTiles>().blueCount++; //addB
