@@ -16,6 +16,10 @@ public class paint : MonoBehaviour
     private int brushDimension = 3; //should only be set to odd numbers
     private int[,] brush;
 
+    private Color redC = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+    private Color greenC = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+    private Color blueC = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +58,69 @@ public class paint : MonoBehaviour
                     {
                         Vector3Int currentTile = topLeftTile + new Vector3Int(i, j);
                         tilemap.SetTileFlags(currentTile, TileFlags.None);
-                        tilemap.SetColor(currentTile, paintcol);
+                        Color oldCol = tilemap.GetColor(currentTile);
+
+                        //not the best code here sorry besties
+                        if (Extension.colEq(paintcol, redC)){ //red
+                            if (Extension.colEq(oldCol, redC)){ //old is red
+                                //doNothing
+                            }
+                            else if (Extension.colEq(oldCol, greenC)){ //old is green
+                                tilemap.SetColor(currentTile, paintcol);
+                                tilemap.GetComponent<sumTiles>().greenCount--;
+                                tilemap.GetComponent<sumTiles>().redCount++;
+                            }
+                            else if (Extension.colEq(oldCol, blueC)){ //old is blue
+                                tilemap.SetColor(currentTile, paintcol);
+                                tilemap.GetComponent<sumTiles>().blueCount--;
+                                tilemap.GetComponent<sumTiles>().redCount++;
+                            }
+                            else //old is white
+                            {
+                                tilemap.SetColor(currentTile, paintcol);
+                                tilemap.GetComponent<sumTiles>().redCount++; //addRed
+                            }
+                        }
+                        else if (Extension.colEq(paintcol, greenC)){ //green
+                            if (Extension.colEq(oldCol, redC)){ //old is red
+                                tilemap.SetColor(currentTile, paintcol);
+                                tilemap.GetComponent<sumTiles>().redCount--;
+                                tilemap.GetComponent<sumTiles>().greenCount++;
+                            }
+                            else if (Extension.colEq(oldCol, greenC)){ //old is green
+                                //do nothing
+                            }
+                            else if (Extension.colEq(oldCol, blueC)){ //old is blue
+                                tilemap.SetColor(currentTile, paintcol);
+                                tilemap.GetComponent<sumTiles>().blueCount--;
+                                tilemap.GetComponent<sumTiles>().greenCount++;
+                            }
+                            else //old is white
+                            {
+                                tilemap.SetColor(currentTile, paintcol);
+                                tilemap.GetComponent<sumTiles>().greenCount++; //addG
+                            }
+                        }
+                        else if (Extension.colEq(paintcol, blueC)){ //blue
+                            if (Extension.colEq(oldCol, redC)){ //old is red
+                                tilemap.SetColor(currentTile, paintcol);
+                                tilemap.GetComponent<sumTiles>().redCount--;
+                                tilemap.GetComponent<sumTiles>().blueCount++;
+                            }
+                            else if (Extension.colEq(oldCol, greenC)){ //old is green
+                                tilemap.SetColor(currentTile, paintcol);
+                                tilemap.GetComponent<sumTiles>().greenCount--;
+                                tilemap.GetComponent<sumTiles>().blueCount++;
+                            }
+                            else if (Extension.colEq(oldCol, blueC)){ //old is blue
+                                //do nothing
+                            }
+                            else //old is white
+                            {
+                                tilemap.SetColor(currentTile, paintcol);
+                                tilemap.GetComponent<sumTiles>().blueCount++; //addB
+                            }
+                        }
                     }
                 }
             }
@@ -62,3 +128,12 @@ public class paint : MonoBehaviour
         }
     }
 }
+
+static class Extension
+{
+    public static bool colEq(this Color x, Color y)
+    {
+        return Mathf.Approximately(x.r, y.r) && Mathf.Approximately(x.g, y.g) && Mathf.Approximately(x.b, y.b);
+    }
+}
+
