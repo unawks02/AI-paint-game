@@ -65,12 +65,14 @@ public class mlagentTraining : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
+        /*
         Vector3Int agentGridPosition = new Vector3Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y), 0);
         int gridRadius = 2;  // For a 5x5 grid
         long colorBinaryRepresentation = 0;
         long collidableBinaryRepresentation = 0;
         int bitPosition = 0;
 
+        
         for (int dy = -gridRadius; dy <= gridRadius; dy++)
         {
             for (int dx = -gridRadius; dx <= gridRadius; dx++)
@@ -101,6 +103,32 @@ public class mlagentTraining : Agent
         // Adding the binary numbers as observations
         sensor.AddObservation(colorBinaryRepresentation);
         sensor.AddObservation(collidableBinaryRepresentation);
+        */
+
+        Vector3Int agentGridPosition = new Vector3Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y), 0);
+        int gridRadius = 1;  // For a 3x3 grid
+
+        // Iterate through a 3x3 grid centered on the agent
+        for (int dy = -gridRadius; dy <= gridRadius; dy++)
+        {
+            for (int dx = -gridRadius; dx <= gridRadius; dx++)
+            {
+                Vector3Int tilePos = agentGridPosition + new Vector3Int(dx, dy, 0);
+
+                // Check if the tile is walkable
+                bool isWalkable = collidableTilemap != null && !collidableTilemap.HasTile(tilePos);
+                sensor.AddObservation(isWalkable);  // Add walkable status as a separate input (1 for walkable, 0 for not)
+
+                // Check if the tile is painted in the agent's color
+                bool isPainted = false;
+                if (tilemap.HasTile(tilePos))
+                {
+                    Color tileColor = tilemap.GetColor(tilePos);
+                    isPainted = tileColor.Equals(paintScript.PaintColor);  // Check if the tile color matches the agent's color
+                }
+                sensor.AddObservation(isPainted);  // Add painted status as a separate input (1 for painted, 0 for not)
+            }
+        }
     }
 
 
@@ -131,7 +159,7 @@ public class mlagentTraining : Agent
 
     public void FinishEpisode()
     {
-        ApplyTerminalReward();  // Apply a significant reward or penalty at the end
+        //ApplyTerminalReward();  // Apply a significant reward or penalty at the end
         base.EndEpisode(); // End the episode
     }
 
@@ -146,7 +174,7 @@ public class mlagentTraining : Agent
     private void ApplyTerminalReward()
     {
         int finalColorCount = GetCurrentColorCount();
-        float reward = (finalColorCount - 50f) * terminalRewardMultiplier;
+        float reward = (finalColorCount - 100f) * terminalRewardMultiplier;
         AddReward(reward);
     }
 

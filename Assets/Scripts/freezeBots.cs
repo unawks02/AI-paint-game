@@ -69,7 +69,7 @@ public class freezeBots : MonoBehaviour
         }
 
         // Start a new episode
-        StartNewEpisode();
+        //StartNewEpisode();
     }
 
 

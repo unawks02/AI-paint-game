@@ -19,11 +19,8 @@ public class ProcGen : MonoBehaviour
 
     public Tile t;
 
-<<<<<<< HEAD
     public Tile unpaintable;
 
-=======
->>>>>>> mlagent
     // Start is called before the first frame update
     void Start()
     {
