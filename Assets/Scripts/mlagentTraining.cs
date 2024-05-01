@@ -104,9 +104,14 @@ public class mlagentTraining : Agent
         sensor.AddObservation(colorBinaryRepresentation);
         sensor.AddObservation(collidableBinaryRepresentation);
         */
-
         Vector3Int agentGridPosition = new Vector3Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y), 0);
-        int gridRadius = 1;  // For a 3x3 grid
+
+        BoundsInt bounds = tilemap.cellBounds;
+        sensor.AddObservation((agentGridPosition.x - bounds.xMin) / (float)bounds.size.x);
+        sensor.AddObservation((agentGridPosition.y - bounds.yMin) / (float)bounds.size.y);
+
+        int gridRadius = 2;  // For a 5x5 grid
+        Color unpaintableColor = new Color(0.1f, 0.0f, 0.0f, 0.0f);
 
         // Iterate through a 3x3 grid centered on the agent
         for (int dy = -gridRadius; dy <= gridRadius; dy++)
@@ -121,12 +126,15 @@ public class mlagentTraining : Agent
 
                 // Check if the tile is painted in the agent's color
                 bool isPainted = false;
+                bool isUnpaintable = false;
                 if (tilemap.HasTile(tilePos))
                 {
                     Color tileColor = tilemap.GetColor(tilePos);
                     isPainted = tileColor.Equals(paintScript.PaintColor);  // Check if the tile color matches the agent's color
+                    isUnpaintable = tileColor.Equals(unpaintableColor);  // Check if the tile color matches the unpaintable color
                 }
                 sensor.AddObservation(isPainted);  // Add painted status as a separate input (1 for painted, 0 for not)
+                sensor.AddObservation(isUnpaintable);
             }
         }
     }
