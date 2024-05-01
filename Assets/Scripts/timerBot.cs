@@ -5,10 +5,9 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
-public class timer : MonoBehaviour
+public class timerBot : MonoBehaviour
 {
 
-    public GameObject playerChar;
     public TextMeshProUGUI gameText;
     public GameObject winCanv;
     public Image background;
@@ -22,8 +21,6 @@ public class timer : MonoBehaviour
     void Start()
     {
         timeLeft = timeGiven + 5.0f;
-        playerChar.GetComponent<move>().enabled = false;
-        playerChar.GetComponent<paint>().enabled = false;
         gameText.text = "Ready...";
         winCanv.SetActive(false);
     }
@@ -42,11 +39,6 @@ public class timer : MonoBehaviour
         {
             timerEnded();
         } 
-        else if (timeLeft <= (timeGiven + 0.0f) )
-        {
-            playerChar.GetComponent<move>().enabled = true;
-            playerChar.GetComponent<paint>().enabled = true;
-        }
         else if (timeLeft <= (timeGiven + 1.0f))
         {
             gameText.text = "Go!";
@@ -59,8 +51,6 @@ public class timer : MonoBehaviour
 
     void timerEnded()
     {
-        playerChar.GetComponent<move>().enabled = false;
-        playerChar.GetComponent<paint>().enabled = false;
         gameText.text = "End!";
         winCanv.SetActive(true);
 
