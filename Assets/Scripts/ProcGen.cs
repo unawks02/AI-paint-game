@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class ProcGen : MonoBehaviour
 {
+    public Grid grid;
+
     public GameObject wallLayer;
     public GameObject floorLayer;
 
@@ -17,9 +19,13 @@ public class ProcGen : MonoBehaviour
     public int numBoxes;
     public int numUninkableAreas;
 
-    public Tile t;
+    public Tile floorTile;
+    public Tile wallTile;
+    public Tile unpaintableTile;
 
-    public Tile unpaintable;
+    private Color c = new Color(0.1f, 0.0f, 0.0f, 0.0f);
+
+    public GameObject grateSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -30,16 +36,16 @@ public class ProcGen : MonoBehaviour
         clearMap();
 
         //generate walls (theres an off by one error here somewhere, the box is too thin)
-        generateColumn(0, 0, dimensions, walls, true);
-        generateColumn(0, 0, dimensions, walls, false);
-        generateColumn(0, dimensions, dimensions, walls, false);
-        generateColumn(dimensions, 0, dimensions + 1, walls, true);
+        generateColumn(0, 0, dimensions, walls, wallTile, true);
+        generateColumn(0, 0, dimensions, walls, wallTile, false);
+        generateColumn(0, dimensions, dimensions, walls, wallTile, false);
+        generateColumn(dimensions, 0, dimensions + 1, walls, wallTile, true);
 
 
         //generate floors
         for (int i = 1; i < dimensions; i++)
         {
-            generateColumn(i, 1, dimensions - 1, floors, true);
+            generateColumn(i, 1, dimensions - 1, floors, floorTile, true, flag:true);
         }
 
         //generate center column
@@ -47,10 +53,10 @@ public class ProcGen : MonoBehaviour
         int columnX = rand.Next(dimensions/3) + dimensions/3;
         int columnHeight = rand.Next(dimensions - minimumCenterColumnHeight) + minimumCenterColumnHeight;
 
-        generateColumn(columnX, 0, columnHeight, walls, true);
+        generateColumn(columnX, 0, columnHeight, walls, wallTile, true);
         //generate offshoot column
 
-        generateColumn(columnX, columnX, 10, walls, false);
+        generateColumn(columnX, columnX, 10, walls, wallTile, false);
 
 
         //generate random boxes
@@ -62,7 +68,10 @@ public class ProcGen : MonoBehaviour
             int width = rand.Next(5) + 2;
             int height = rand.Next(5) + 2;
 
-            generateSquare(x, y, width, height, floors, true);
+            generateSquare(x, y, width, height, floors, unpaintableTile);
+            /*GameObject g = Instantiate(grateSprite);
+            g.transform.position = grid.CellToWorld(new Vector3Int(x - 5, -y + 5));
+            g.transform.localScale = new Vector3(width, height, g.transform.localScale.z);*/
         }
 
         
@@ -75,16 +84,8 @@ public class ProcGen : MonoBehaviour
         floors.ClearAllTiles();
     }
 
-    private void generateColumn(int x, int y, int length, Tilemap layer, bool vertical, bool isNull = false)
+    private void generateColumn(int x, int y, int length, Tilemap layer, Tile tile, bool vertical, bool flag = false)
     {
-        Tile tile;
-
-        if (!isNull) {
-            tile = t;
-        } else //gonna add a grey tile here for unpaintable! our bg may also look like unpaintable tiles now tho haha
-        {
-            tile = unpaintable;
-        }
         for (int i = 0; i < length; i++)
         {
             Vector3Int currentCoords;
@@ -102,16 +103,21 @@ public class ProcGen : MonoBehaviour
             }
             
             layer.SetTile(currentCoords, tile);
+            if (flag)
+            {
+                layer.SetTileFlags(currentCoords, TileFlags.None);
+                layer.SetColor(currentCoords, c);
+            }
 
         }
     }
 
 
-    private void generateSquare(int x, int y, int width, int height, Tilemap layer, bool isNull = false)
+    private void generateSquare(int x, int y, int width, int height, Tilemap layer, Tile tile)
     {
         for (int i = x; i < x + width; i++)
         {
-            generateColumn(i, y, height, layer, true, isNull);
+            generateColumn(i, y, height, layer, tile, true);
         }
     }
 }

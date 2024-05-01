@@ -26,7 +26,7 @@ public class sumTiles : MonoBehaviour
             if (tile != null) 
             {
                 Color curCol = tilemap.GetColor(pos);
-                bool isWhite =  Mathf.Approximately(1.0f, curCol.r) && Mathf.Approximately(1.0f, curCol.g) && Mathf.Approximately(1.0f, curCol.b);
+                bool isWhite =  Mathf.Approximately(0.1f, curCol.r) && Mathf.Approximately(0.0f, curCol.g) && Mathf.Approximately(0.0f, curCol.b);
                 if (isWhite) {
                     total++;
                 }

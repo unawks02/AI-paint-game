@@ -19,7 +19,7 @@ public class paint : MonoBehaviour
     private Color redC = new Color(1.0f, 0.0f, 0.0f, 1.0f);
     private Color greenC = new Color(0.0f, 1.0f, 0.0f, 1.0f);
     private Color blueC = new Color(0.0f, 0.0f, 1.0f, 1.0f);
-    private Color whiteC = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    private Color whiteC = new Color(0.1f, 0.0f, 0.0f, 0.0f);
 
 
     // Start is called before the first frame update
