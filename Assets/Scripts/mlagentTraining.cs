@@ -36,22 +36,22 @@ public class mlagentTraining : Agent
         transform.localPosition = new Vector3(Random.Range(-5.0f, 15.0f), Random.Range(-5.0f, -15.0f), 0);
 
         // Find and regenerate the map
-        ProcGen mapGenerator = FindObjectOfType<ProcGen>();
-        if (mapGenerator != null)
-        {
-            mapGenerator.GenerateMap();
-        }
-        else
-        {
-            Debug.LogError("Failed to find the ProcGen script on a GameObject.");
-        }
+        //ProcGen mapGenerator = FindObjectOfType<ProcGen>();
+        //if (mapGenerator != null)
+        //{
+        //    mapGenerator.GenerateMap();
+        //}
+        //else
+        //{
+        //    Debug.LogError("Failed to find the ProcGen script on a GameObject.");
+        //}
 
         // Reset the tilemap and counts
-        TilemapManager tilemapManager = FindObjectOfType<TilemapManager>();
-        if (tilemapManager != null)
-        {
-            tilemapManager.ResetTilemap();
-        }
+        //TilemapManager tilemapManager = FindObjectOfType<TilemapManager>();
+        //if (tilemapManager != null)
+        //{
+          // tilemapManager.ResetTilemap();
+        //}
 
         sumTiles counter = FindObjectOfType<sumTiles>();
         if (counter != null)

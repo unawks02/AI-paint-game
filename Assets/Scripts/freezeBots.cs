@@ -43,13 +43,13 @@ public class freezeBots : MonoBehaviour
         // Reset timer
         timeLeft = timeGiven + 5.0f;
 
-        // Re-enable ML agent and painting components
+         //Re-enable ML agent and painting components
         thisBot.GetComponent<mlagentTraining>().enabled = true;
         thisBot.GetComponent<paint>().enabled = true;
 
         // Ensure the environment is reset
         mlagentTraining agentTraining = thisBot.GetComponent<mlagentTraining>();
-        if (agentTraining != null)
+        //if (agentTraining != null)
         {
             agentTraining.OnEpisodeBegin();
         }
@@ -63,13 +63,13 @@ public class freezeBots : MonoBehaviour
 
         // Finish the current episode and calculate rewards
         mlagentTraining agentTraining = thisBot.GetComponent<mlagentTraining>();
-        if (agentTraining != null)
+        //if (agentTraining != null)
         {
             agentTraining.FinishEpisode();
         }
 
         // Start a new episode
-        //StartNewEpisode();
+        StartNewEpisode();
     }
 
 

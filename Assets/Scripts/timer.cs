@@ -69,6 +69,7 @@ public class timer : MonoBehaviour
         float blue = tilemap.GetComponent<sumTiles>().blueCount;
         float green = tilemap.GetComponent<sumTiles>().greenCount;
 
+        Debug.Log("r, g, b: " + red + " " + green + " " + blue);
         float max = Mathf.Max(red, green, blue);
 
         //set colors 

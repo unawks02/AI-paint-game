@@ -546,6 +546,7 @@ GameObject:
   - component: {fileID: 355945292}
   - component: {fileID: 355945291}
   - component: {fileID: 355945290}
+  - component: {fileID: 355945299}
   m_Layer: 0
   m_Name: agent3
   m_TagString: Untagged
@@ -561,7 +562,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355945288}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.03, y: 0.75, z: 0.052004773}
+  m_LocalPosition: {x: 2.61, y: 0.75, z: 0.052004773}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -575,7 +576,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355945288}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1561c6ba14e95154bb43d341199b7952, type: 3}
   m_Name: 
@@ -624,7 +625,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355945288}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0952449efa32d754c910c0850a59ca4f, type: 3}
   m_Name: 
@@ -782,6 +783,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &355945299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355945288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f440bcd0386a5b47a54f754bd75f0b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerChar: {fileID: 1620541808}
+  thisBot: {fileID: 355945288}
+  timeGiven: 120
 --- !u!1 &437615392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,6 +1727,7 @@ GameObject:
   - component: {fileID: 1092030106}
   - component: {fileID: 1092030105}
   - component: {fileID: 1092030104}
+  - component: {fileID: 1092030113}
   m_Layer: 0
   m_Name: agent2
   m_TagString: Untagged
@@ -1740,7 +1757,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1092030102}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1561c6ba14e95154bb43d341199b7952, type: 3}
   m_Name: 
@@ -1789,7 +1806,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1092030102}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0952449efa32d754c910c0850a59ca4f, type: 3}
   m_Name: 
@@ -1947,6 +1964,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1092030113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092030102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f440bcd0386a5b47a54f754bd75f0b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerChar: {fileID: 1620541808}
+  thisBot: {fileID: 1092030102}
+  timeGiven: 120
 --- !u!156049354 &1162457692 stripped
 Grid:
   m_CorrespondingSourceObject: {fileID: 8933271534648023233, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
@@ -3113,15 +3145,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8933271533433071168, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_Color.b
-      value: 0.018612862
-      objectReference: {fileID: 0}
-    - target: {fileID: 8933271533433071168, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
-      propertyPath: m_Color.g
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8933271533433071168, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
-      propertyPath: m_Color.r
+      propertyPath: m_Color.g
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933271533433071168, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
+      propertyPath: m_Color.r
+      value: 0.14923549
       objectReference: {fileID: 0}
     - target: {fileID: 8933271533433071168, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_SortingOrder
@@ -3143,6 +3175,14 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 1620541810}
+    - target: {fileID: 8933271533433071172, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
+      propertyPath: red
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933271533433071172, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
+      propertyPath: green
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8933271533433071174, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_Constraints
       value: 4
@@ -3181,7 +3221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8933271533433071181, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8933271534742079090, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_Color.a
@@ -4419,10 +4459,18 @@ PrefabInstance:
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 18
       objectReference: {fileID: 0}
+    - target: {fileID: 8933271535116308614, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8933271535116308615, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: tilemap
       value: 
       objectReference: {fileID: 206144315}
+    - target: {fileID: 8933271535116308615, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8933271535116308615, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: paintScript
       value: 
