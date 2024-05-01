@@ -10,10 +10,18 @@ public class sumTiles : MonoBehaviour
     public TextMeshProUGUI redText;
     public TextMeshProUGUI greenText;
     public TextMeshProUGUI blueText;
-    private float total = 0.0f;
+    public float total = 0.0f;
     public float redCount = 0.0f;
     public float greenCount = 0.0f;
     public float blueCount = 0.0f;
+
+
+    public void ResetCounts()
+    {
+        redCount = 0.0f;
+        greenCount = 0.0f;
+        blueCount = 0.0f;
+    }
 
     // Start is called before the first frame update
     void Start()

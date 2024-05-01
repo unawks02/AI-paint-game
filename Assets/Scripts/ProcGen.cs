@@ -19,54 +19,52 @@ public class ProcGen : MonoBehaviour
 
     public Tile t;
 
+<<<<<<< HEAD
     public Tile unpaintable;
 
+=======
+>>>>>>> mlagent
     // Start is called before the first frame update
     void Start()
     {
         walls = wallLayer.GetComponent<Tilemap>();
         floors = floorLayer.GetComponent<Tilemap>();
+        GenerateMap();
+    }
+    public void GenerateMap()
+    {
+        clearMap();  // Clear existing map tiles
 
-        clearMap();
-
-        //generate walls (theres an off by one error here somewhere, the box is too thin)
+        // Wall generation logic
         generateColumn(0, 0, dimensions, walls, true);
         generateColumn(0, 0, dimensions, walls, false);
         generateColumn(0, dimensions, dimensions, walls, false);
         generateColumn(dimensions, 0, dimensions + 1, walls, true);
 
-
-        //generate floors
+        // Floor generation logic
         for (int i = 1; i < dimensions; i++)
         {
             generateColumn(i, 1, dimensions - 1, floors, true);
         }
 
-        //generate center column
         var rand = new System.Random();
-        int columnX = rand.Next(dimensions/3) + dimensions/3;
+        // Central column
+        int columnX = rand.Next(dimensions / 3) + dimensions / 3;
         int columnHeight = rand.Next(dimensions - minimumCenterColumnHeight) + minimumCenterColumnHeight;
-
         generateColumn(columnX, 0, columnHeight, walls, true);
-        //generate offshoot column
 
+        // Offshoot column
         generateColumn(columnX, columnX, 10, walls, false);
 
-
-        //generate random boxes
+        // Random boxes
         for (int i = 0; i < numBoxes; i++)
         {
             int x = rand.Next(dimensions);
             int y = rand.Next(dimensions);
-
             int width = rand.Next(5) + 2;
             int height = rand.Next(5) + 2;
-
             generateSquare(x, y, width, height, floors, true);
         }
-
-        
-        
     }
 
     private void clearMap()
