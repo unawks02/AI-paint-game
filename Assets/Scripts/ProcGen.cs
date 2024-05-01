@@ -32,7 +32,11 @@ public class ProcGen : MonoBehaviour
     {
         walls = wallLayer.GetComponent<Tilemap>();
         floors = floorLayer.GetComponent<Tilemap>();
+        GenerateMap();
+    }
 
+    public void GenerateMap()
+    {
         clearMap();
 
         //generate walls (theres an off by one error here somewhere, the box is too thin)

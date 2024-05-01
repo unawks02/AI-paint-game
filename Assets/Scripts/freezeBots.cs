@@ -16,7 +16,7 @@ public class freezeBots : MonoBehaviour
     {
         timeGiven = playerChar.GetComponent<timer>().timeGiven;
         timeLeft = timeGiven + 5.0f;
-        thisBot.GetComponent<MoveToTargetAgent>().enabled = false;
+        thisBot.GetComponent<mlagentTraining>().enabled = false;
         thisBot.GetComponent<paint>().enabled = false;
     }
 
@@ -29,19 +29,48 @@ public class freezeBots : MonoBehaviour
         if (timeLeft <= 0.0f)
         {
             timerEnded();
-        } 
-        else if (timeLeft <= (timeGiven + 0.0f) )
+        }
+        else if (timeLeft <= (timeGiven + 0.0f))
         {
-            thisBot.GetComponent<MoveToTargetAgent>().enabled = true;
+            thisBot.GetComponent<mlagentTraining>().enabled = true;
             thisBot.GetComponent<paint>().enabled = true;
         }
-        
+
     }
+
+    void StartNewEpisode()
+    {
+        // Reset timer
+        timeLeft = timeGiven + 5.0f;
+
+        // Re-enable ML agent and painting components
+        thisBot.GetComponent<mlagentTraining>().enabled = true;
+        thisBot.GetComponent<paint>().enabled = true;
+
+        // Ensure the environment is reset
+        mlagentTraining agentTraining = thisBot.GetComponent<mlagentTraining>();
+        if (agentTraining != null)
+        {
+            agentTraining.OnEpisodeBegin();
+        }
+    }
+
 
     void timerEnded()
     {
-        thisBot.GetComponent<MoveToTargetAgent>().enabled = false;
+        thisBot.GetComponent<mlagentTraining>().enabled = false;
         thisBot.GetComponent<paint>().enabled = false;
+
+        // Finish the current episode and calculate rewards
+        mlagentTraining agentTraining = thisBot.GetComponent<mlagentTraining>();
+        if (agentTraining != null)
+        {
+            agentTraining.FinishEpisode();
+        }
+
+        // Start a new episode
+        //StartNewEpisode();
     }
+
 
 }
