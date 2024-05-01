@@ -16,6 +16,8 @@ public class mlagentTraining : Agent
     [SerializeField] private paint paintScript;  // Reference to the paint script
     private int previousColorCount = 0;  // Store the count of tiles from the previous step
 
+    private const float terminalRewardMultiplier = 10.0f;  // Adjust this to scale the terminal reward
+
 
     public override void Initialize()
     {
@@ -31,7 +33,18 @@ public class mlagentTraining : Agent
     public override void OnEpisodeBegin()
     {
         // Reset the agent's position or other states as needed
-        transform.localPosition = new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f), 0);
+        transform.localPosition = new Vector3(Random.Range(-5.0f, 15.0f), Random.Range(-5.0f, -15.0f), 0);
+
+        // Find and regenerate the map
+        ProcGen mapGenerator = FindObjectOfType<ProcGen>();
+        if (mapGenerator != null)
+        {
+            mapGenerator.GenerateMap();
+        }
+        else
+        {
+            Debug.LogError("Failed to find the ProcGen script on a GameObject.");
+        }
 
         // Reset the tilemap and counts
         TilemapManager tilemapManager = FindObjectOfType<TilemapManager>();
@@ -103,8 +116,7 @@ public class mlagentTraining : Agent
         Vector2 newPosition = new Vector2(moveX * movementSpeed * Time.deltaTime, moveY * movementSpeed * Time.deltaTime);
         transform.Translate(newPosition);
 
-        // Calculate and apply continuous reward based on the current state
-        CalculateReward();
+        ApplyContinuousReward();
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -119,9 +131,26 @@ public class mlagentTraining : Agent
 
     public void FinishEpisode()
     {
+        ApplyTerminalReward();  // Apply a significant reward or penalty at the end
         base.EndEpisode(); // End the episode
     }
 
+    private void ApplyContinuousReward()
+    {
+        int currentColorCount = GetCurrentColorCount();
+        int colorChange = currentColorCount - previousColorCount;
+        AddReward(colorChange);  // Reward is the change in number of tiles
+        previousColorCount = currentColorCount;
+    }
+
+    private void ApplyTerminalReward()
+    {
+        int finalColorCount = GetCurrentColorCount();
+        float reward = (finalColorCount - 50f) * terminalRewardMultiplier;
+        AddReward(reward);
+    }
+
+    /*
     private void CalculateReward()
     {
         int currentColorCount = GetCurrentColorCount();
@@ -130,6 +159,7 @@ public class mlagentTraining : Agent
 
         previousColorCount = currentColorCount;  // Update the count for the next step
     }
+    */
 
     private int GetCurrentColorCount()
     {
