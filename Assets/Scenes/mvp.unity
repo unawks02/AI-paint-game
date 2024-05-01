@@ -552,7 +552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &355945289
 Transform:
   m_ObjectHideFlags: 0
@@ -658,7 +658,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 335063148470dff4dab8ad756148db45, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: de335f7f4685f0a47b251a248bade172, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: MoveToTarget
@@ -1626,7 +1626,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1045785976
 Transform:
   m_ObjectHideFlags: 0
@@ -1823,7 +1823,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 335063148470dff4dab8ad756148db45, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: de335f7f4685f0a47b251a248bade172, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: MoveToTarget
@@ -3181,7 +3181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8933271533433071181, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8933271534742079090, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_Color.a
@@ -4410,7 +4410,7 @@ PrefabInstance:
     - target: {fileID: 8933271535116308612, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 335063148470dff4dab8ad756148db45, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: de335f7f4685f0a47b251a248bade172, type: 3}
     - target: {fileID: 8933271535116308612, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_BehaviorName
       value: MoveToTarget
