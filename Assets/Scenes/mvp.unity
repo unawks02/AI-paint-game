@@ -816,7 +816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 18
+    VectorObservationSize: 77
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
@@ -825,7 +825,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: de335f7f4685f0a47b251a248bade172, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: a2f04a21f6dc4b942a3b3872e6c9166a, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: MoveToTarget
@@ -3070,7 +3070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 18
+    VectorObservationSize: 77
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
@@ -3079,7 +3079,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: de335f7f4685f0a47b251a248bade172, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: a2f04a21f6dc4b942a3b3872e6c9166a, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: MoveToTarget
@@ -5814,14 +5814,14 @@ PrefabInstance:
     - target: {fileID: 8933271535116308612, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: de335f7f4685f0a47b251a248bade172, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: a2f04a21f6dc4b942a3b3872e6c9166a, type: 3}
     - target: {fileID: 8933271535116308612, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_BehaviorName
       value: MoveToTarget
       objectReference: {fileID: 0}
     - target: {fileID: 8933271535116308612, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 18
+      value: 77
       objectReference: {fileID: 0}
     - target: {fileID: 8933271535116308613, guid: 3359435badf015641b5ce804e3ab747f, type: 3}
       propertyPath: red
