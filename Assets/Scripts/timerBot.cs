@@ -1,4 +1,5 @@
-using System.Collections;
+//depracated code, only for old timer system
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -7,23 +8,21 @@ using UnityEngine.Tilemaps;
 
 public class timerBot : MonoBehaviour
 {
-
-    public TextMeshProUGUI gameText;
-    public GameObject winCanv;
-    public Image background;
-    public TextMeshProUGUI winText;
-    public float timeGiven = 120.0f;
+    public GameObject timerObj;
+    public GameObject thisBot;
+    public float timeGiven = 0.0f;
     private float timeLeft = 0.0f;
-
-    public Tilemap tilemap;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        timeGiven = timerObj.GetComponent<timer>().timeGiven;
         timeLeft = timeGiven + 5.0f;
-        gameText.text = "Ready...";
-        winCanv.SetActive(false);
+        thisBot.GetComponent<mlagentTraining>().enabled = false;
+        thisBot.GetComponent<paint>().enabled = false;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -100,3 +99,4 @@ public class timerBot : MonoBehaviour
 
     }
 }
+*/

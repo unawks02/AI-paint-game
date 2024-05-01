@@ -14,7 +14,7 @@ public class mlagentTraining : Agent
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private Tilemap collidableTilemap;  // Assign this in the Unity Editor
 
-    [SerializeField] private paint paintScript;
+    [SerializeField] private paintBot paintScript;
 
 
     public override void OnEpisodeBegin()
