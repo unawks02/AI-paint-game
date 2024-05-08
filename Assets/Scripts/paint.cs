@@ -7,6 +7,10 @@ public class paint : MonoBehaviour
 {
     public float paintSpeed = 10.0f; // The number of units you want to move
     public Tilemap tilemap;
+    public Tilemap maskLayer;
+    public Tile t;
+    public Tile unpaintableTile;
+    public TilemapMask mask;
     public float red = 1.0f;
     public float green = 0.0f;
     public float blue = 0.0f;
@@ -26,7 +30,7 @@ public class paint : MonoBehaviour
     void Start()
     {
         timer = 1.0f / paintSpeed;
-        paintcol = new Color(red, green, blue, 1.0f);
+        paintcol = new Color(red, green, blue, 0.392f);
 
         //brush = new int[brushDimension, brushDimension]; now get from brush obj
 
@@ -35,7 +39,7 @@ public class paint : MonoBehaviour
 
         if (masterBrush.Length == 0)
         {
-            Debug.Log("Brush not found");
+            //Debug.Log("Brush not found");
             brush = new int[brushDimension, brushDimension];
 
             for (int i = 0; i < brushDimension; i++)
@@ -48,7 +52,7 @@ public class paint : MonoBehaviour
         }
         else
         {
-            Debug.Log("Brush found");
+            //Debug.Log("Brush found");
             brush = masterBrush[0].GetComponent<brushArray>().array;
         }
     }
@@ -76,74 +80,47 @@ public class paint : MonoBehaviour
                     if (brush[i, j] == 1)
                     {
                         Vector3Int currentTile = topLeftTile + new Vector3Int(i, j);
+                        if (tilemap.GetTile(currentTile) == null || tilemap.GetTile(currentTile).Equals(unpaintableTile))
+                        {
+                            continue; //uninkables
+                        }
                         tilemap.SetTileFlags(currentTile, TileFlags.None);
+                        //maskLayer.SetTileFlags(currentTile, TileFlags.None);
                         Color oldCol = tilemap.GetColor(currentTile);
 
-                        //not the best code here sorry besties
-                        if (Extension.colEq(paintcol, redC)){ //red
-                            if (Extension.colEq(oldCol, redC)){ //old is red
-                                //doNothing
-                            }
-                            else if (Extension.colEq(oldCol, greenC)){ //old is green
-                                tilemap.SetColor(currentTile, paintcol);
-                                tilemap.GetComponent<sumTiles>().greenCount--;
-                                tilemap.GetComponent<sumTiles>().redCount++;
-                            }
-                            else if (Extension.colEq(oldCol, blueC)){ //old is blue
-                                tilemap.SetColor(currentTile, paintcol);
-                                tilemap.GetComponent<sumTiles>().blueCount--;
-                                tilemap.GetComponent<sumTiles>().redCount++;
-                            }
-                            else if (Extension.colEq(oldCol, whiteC))//old is white
-                            {
-                                tilemap.SetColor(currentTile, paintcol);
-                                tilemap.GetComponent<sumTiles>().redCount++; //addRed
-                            }
+                        tilemap.SetColor(currentTile, paintcol);
+                        maskLayer.SetTile(currentTile, t);
+
+                        //decrements old color
+                        if (Extension.colEq(oldCol, redC)) 
+                        {
+                            tilemap.GetComponent<sumTiles>().redCount--;
                         }
-                        else if (Extension.colEq(paintcol, greenC)){ //green
-                            if (Extension.colEq(oldCol, redC)){ //old is red
-                                tilemap.SetColor(currentTile, paintcol);
-                                tilemap.GetComponent<sumTiles>().redCount--;
-                                tilemap.GetComponent<sumTiles>().greenCount++;
-                            }
-                            else if (Extension.colEq(oldCol, greenC)){ //old is green
-                                //do nothing
-                            }
-                            else if (Extension.colEq(oldCol, blueC)){ //old is blue
-                                tilemap.SetColor(currentTile, paintcol);
-                                tilemap.GetComponent<sumTiles>().blueCount--;
-                                tilemap.GetComponent<sumTiles>().greenCount++;
-                            }
-                            else if (Extension.colEq(oldCol, whiteC))//old is white
-                            {
-                                tilemap.SetColor(currentTile, paintcol);
-                                tilemap.GetComponent<sumTiles>().greenCount++; //addG
-                            }
+                        else if (Extension.colEq(oldCol, greenC))
+                        { 
+                            tilemap.GetComponent<sumTiles>().greenCount--;
                         }
-                        else if (Extension.colEq(paintcol, blueC)){ //blue
-                            if (Extension.colEq(oldCol, redC)){ //old is red
-                                tilemap.SetColor(currentTile, paintcol);
-                                tilemap.GetComponent<sumTiles>().redCount--;
-                                tilemap.GetComponent<sumTiles>().blueCount++;
-                            }
-                            else if (Extension.colEq(oldCol, greenC)){ //old is green
-                                tilemap.SetColor(currentTile, paintcol);
-                                tilemap.GetComponent<sumTiles>().greenCount--;
-                                tilemap.GetComponent<sumTiles>().blueCount++;
-                            }
-                            else if (Extension.colEq(oldCol, blueC)){ //old is blue
-                                //do nothing
-                            }
-                            else if (Extension.colEq(oldCol, whiteC))//old is white
-                            {
-                                tilemap.SetColor(currentTile, paintcol);
-                                tilemap.GetComponent<sumTiles>().blueCount++; //addB
-                            }
+                        else if (Extension.colEq(oldCol, blueC))
+                        {
+                            tilemap.GetComponent<sumTiles>().blueCount--;
+                        }
+                        //increments new color
+                        if (Extension.colEq(paintcol, redC))
+                        {
+                            tilemap.GetComponent<sumTiles>().redCount++;
+                        }
+                        else if (Extension.colEq(paintcol, greenC))
+                        {
+                            tilemap.GetComponent<sumTiles>().greenCount++;
+                        }
+                        else if (Extension.colEq(paintcol, blueC))
+                        {
+                            tilemap.GetComponent<sumTiles>().blueCount++;
                         }
                     }
                 }
             }
-
+            mask.GenerateMask();
         }
     }
 }

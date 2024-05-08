@@ -78,8 +78,6 @@ public class ProcGen : MonoBehaviour
             g.transform.localScale = new Vector3(width, height, g.transform.localScale.z);*/
         }
 
-        
-        
     }
 
     private void clearMap()
